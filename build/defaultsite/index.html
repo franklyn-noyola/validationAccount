@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activación de Usuario</title>  
+  
+</head>
+<body">
+<table>
+	  <tr>	  	 
+	  <td>
+	  <img src="logocochenuevo.jpg" height="70"></img>
+	  </td>	  
+	  <td>
+		<font color="blue" face="Arial"><h1>allConnected</h1></font>	  
+		</td >
+	  </tr>	  
+	  <tr>
+	  <font></font>
+	  </tr>
+	  <tr>	  	  	  
+	  </table>
+	  
+	  <table>
+	  <tr>
+	  <font color="blue" style="text-align:center; font-family:Verdana"><h1>Activación de Usuario</h1></font>	  	  
+	  </tr>
+	  </table>
+	  <div style="text-align:center; height:50px" >
+
+		<font id="pagraph" style="text-align:center; font-size:12pt; font-weight:bold; font-family:Arial">Introducir el código de activación</font>
+
+		<input id="activeField" style="text-align:center; background-color:#90EE90"></input>
+	</div>
+	<div style="text-align:center">
+	
+			<button type="button" id="activeAccount" style="background-color:blue; font-size:20pt; color:white" onClick="accountActive();"> Activar Usuario</button>
+	</div>
+	<table>	  
+<tr>
+          <p id="active" style="text-align:center"></p>
+	</tr>	
+	</table>
+	<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+  <script "text/javascript">    
+	
+var firebaseConfig = {
+		apiKey: "AIzaSyB9_R4UKHHrgEchrx8bC5HgZlScfv4_PAM",
+		authDomain: "https://allconnected-e6e70.firebaseapp.com/",
+		databaseURL: "https://allconnected-e6e70-default-rtdb.firebaseio.com/",	
+		projectId: "1094819462505",
+		storageBucket: "allconnected-e6e70.appspot.com";  			
+		appID: "1:1094819462505:android:0f9fe1042804466a3651f8",
+		
+		firebase.initializeApp(firebaseConfig);		
+		
+	function accountActive(){
+	  
+		var database = firebase.database();
+		var userRef = database.ref("Users/ActivatedUser")
+		var activeField = document.getElementById("activeField");
+		var activeUser = document.getElementById("active");
+		var buttonActive = document.getElementById("activeAccount");
+		activeUser.style.textAlign = "center";		
+		if (activeField.value==""){
+			activeUser.style.color="Red";
+			activeUser.innerHTML = "Campo no puede estar vacío";
+		}else{
+			userRef.orderByChild("activationCode").equalTo(activeField.value).on('value', function(snapshot){
+					var code
+					var activated;		
+					var key = "";					
+					snapshot.forEach(function(childSnapshot){
+						key = childSnapshot.key;
+						code = childSnapshot.child("activationCode").val();
+						activated = childSnapshot.child("activated").val();
+					});						
+					
+					if (code==activeField.value){
+						if (activated == "ON"){							
+							activeUser.innerHTML = "Usuario ya está activado";			
+						}else{
+							activeUser.style.color="Blue";	
+							database.ref("Users/ActivatedUser").child(key).update({activated: "ON"});
+							activeUser.innerHTML = "El usuario ha sido activado";
+							return;							
+						}
+						
+					}else{
+						activeUser.style.color="Red";	
+						activeUser.innerHTML = "Código de Activación: "+activeField.value+" inválido o no existe";			
+					}
+					
+					
+			});
+	}
+	}
+  </script>
+	
+</body>
+</html>
+

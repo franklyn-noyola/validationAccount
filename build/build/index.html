@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="headTitle">Activación de Usuario</title>  
+  
+</head>
+<body">
+<table>
+	  <tr>	  	 
+	  <td>
+	  <img src="logocochenuevo.jpg" height="70"></img>
+	  </td>	  
+	  <td>
+		<font color="blue" face="Arial"><h1>allConnected</h1></font>	  
+		</td >
+	  </tr>	  
+	  <tr>
+	  <font></font>
+	  </tr>
+	  <tr>	  	  	  
+	  </table>
+	  
+	  <table>
+	  <tr>
+	  <font color="blue" style="text-align:center; font-family:Verdana"><h1 id="header"></h1></font>
+	  </tr>
+	  </table>
+	  <div style="text-align:center; height:50px" >
+
+		<font id="pagraph" style="text-align:center; font-size:12pt; font-weight:bold; font-family:Arial"></font>
+
+		<input id="activeField" style="text-align:center; background-color:#90EE90"></input>
+	</div>
+	<div style="text-align:center">
+	
+			<button type="button" id="activeAccount" style="background-color:blue; font-size:20pt; color:white" onClick="accountActive();"> Activar Usuario</button>
+	</div>
+	<table>	  
+<tr>
+          <p id="active" style="text-align:center"></p>
+	</tr>	
+	</table>
+	<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+  <script "text/javascript">    
+	function LoadOnce() 
+		{ 
+		window.location.reload(); 
+		} 
+	
+	var headerES = "Activación de Usuario"
+	var headerFR = "Activation de l'utilisateur"
+	var headerDE = "Benutzeraktivierung"
+	var headerIT = "Attivazione dell'utente"
+	var headerEN = "Account Activation"
+	var headerPT = "Ativação de usuário"
+	var headerRU = "Активация пользователя"
+	var headerZH = "用户激活"
+	var headerJA = "ユーザーアクティベーション"
+	var headerNL = "Gebruikersactivering"
+	var headerPL = "Aktywacja użytkownika"
+	var headerKO = "사용자 활성화"
+	var headerSV = "Användaraktivering"
+	var headerAR = "تنشيط المستخدم"
+	var headerHI = "उपयोगकर्ता सक्रियकरण"
+	var headerUR = "صارف کی ایکٹیویشن"
+	
+	
+	var pagraphES = "Introducir el código de activación"
+	var pagraphEN = "Enter Activation Code";
+	var pagraphDE = "Gib den Aktivierungscode ein"
+	var pagraphFR = "Entrer le code d'activation";
+	var pagraphIT = "Inserire il codice di attivazione";
+	var pagraphPT = "Digite o código de ativação"
+	var pagraphRU = "Введите код активации"
+	var pagraphZH = "输入激活码"
+	var pagraphJA = "アクティベーションコードを入力してください"
+	var pagraphNL = "Voer de activeringscode in"
+	var pagraphPL = "Wprowadź kod aktywacyjny"
+	var pagraphKO = "활성화 코드 입력"
+	var pagraphSV = "Ange aktiveringskoden"
+	var pagraphAR = "أدخل رمز التفعيل"
+	var pagraphHI = "सक्रियण कोड दर्ज करें"
+	var pagraphUR = "ایکٹیویشن کوڈ درج کریں"
+	
+	
+	var activateUserES = "Activar Usuario";
+	var activateUserEN = "Activate Account";
+	var activateUserDE = "Benutzer aktivieren";
+	var activateUserFR = "Activer l'utilisateur";
+	var activateUserIT = "Attiva utente";	
+	var activateUserPT = "Ativar usuário";
+	var activateUserRU = "Активировать пользователя";
+	var activateUserZH = "激活用户";
+	var activateUserJA = "ユーザーをアクティブ化する";
+	var activateUserNL = "Activeer gebruiker";
+	var activateUserPL = "Aktywuj użytkownika";
+	var activateUserKO = "사용자 활성화";
+	var activateUserSV = "Aktivera användare";
+	var activateUserAR = "تنشيط المستخدم";
+	var activateUserHI = "उपयोगकर्ता को सक्रिय करें";
+	var activateUserUR = "چالو صارف";
+	
+	var headerField = document.getElementById("header");
+	var pagraphText = document.getElementById("pagraph");
+	var headTitle = document.getElementById("headTitle");
+	var currentURL = window.location.href;
+	var buttonActive = document.getElementById("activeAccount");		
+	var getLanguageURL = currentURL.substring(36);
+	buttonActive.onload = function(){accountActive()};
+	
+	if (getLanguageURL=="EN"){
+		headTitle.innerHTML = headerEN;
+		headerField.innerHTML = headerEN;
+		pagraphText.innerHTML = pagraphEN;
+		buttonActive.innerHTML = activateUserEN
+	}
+	if (getLanguageURL=="ES"){
+		headTitle.innerHTML = headerES;
+		headerField.innerHTML = headerES;
+		pagraphText.innerHTML = pagraphES;
+		buttonActive.innerHTML = activateUserES
+	}
+	if (getLanguageURL=="DE"){
+		headTitle.innerHTML = headerDE;
+		headerField.innerHTML = headerDE;
+		pagraphText.innerHTML = pagraphDE;
+		buttonActive.innerHTML = activateUserDE		
+	}
+	if (getLanguageURL=="FR"){
+		headTitle.innerHTML = headerFR;
+		headerField.innerHTML = headerFR;
+		pagraphText.innerHTML = pagraphFR;
+		buttonActive.innerHTML = activateUserFR
+		}
+		
+	if (getLanguageURL=="IT"){
+		headTitle.innerHTML = headerIT;
+		headerField.innerHTML = headerIT;
+		pagraphText.innerHTML = pagraphIT;
+		buttonActive.innerHTML = activateUserIT
+	}
+		
+	if (getLanguageURL=="PT"){
+		headTitle.innerHTML = headerPT;
+		headerField.innerHTML = headerPT;
+		pagraphText.innerHTML = pagraphPT;
+		buttonActive.innerHTML = activateUserPT
+	}
+	if (getLanguageURL=="RU"){
+		headTitle.innerHTML = headerRU;
+		headerField.innerHTML = headerRU;
+		pagraphText.innerHTML = pagraphRU;
+		buttonActive.innerHTML = activateUserRU
+	}
+	if (getLanguageURL=="ZH"){
+		headTitle.innerHTML = headerZH;
+		headerField.innerHTML = headerZH;
+		pagraphText.innerHTML = pagraphZH;
+		buttonActive.innerHTML = activateUserZH
+	}
+	if (getLanguageURL=="JA"){
+		headTitle.innerHTML = headerJA;
+		headerField.innerHTML = headerJA;
+		pagraphText.innerHTML = pagraphJA;
+		buttonActive.innerHTML = activateUserJA;
+	}
+	if (getLanguageURL=="NL"){
+		headTitle.innerHTML = headerNL;
+		headerField.innerHTML = headerNL;
+		pagraphText.innerHTML = pagraphNL;
+		buttonActive.innerHTML = activateUserNL;
+	}
+	if (getLanguageURL=="PL"){
+		headTitle.innerHTML = headerPL;
+		headerField.innerHTML = headerPL;
+		pagraphText.innerHTML = pagraphPL;
+		buttonActive.innerHTML = activateUserPL;
+	}
+	if (getLanguageURL=="KO"){
+		headTitle.innerHTML = headerKO;
+		headerField.innerHTML = headerKO;
+		pagraphText.innerHTML = pagraphKO;
+		buttonActive.innerHTML = activateUserKO;
+	}
+	if (getLanguageURL=="SV"){
+		headTitle.innerHTML = headerSV;
+		headerField.innerHTML = headerSV;
+		pagraphText.innerHTML = pagraphSV;
+		buttonActive.innerHTML = activateUserSV;
+	}
+	if (getLanguageURL=="AR"){
+		headTitle.innerHTML = headerAR;
+		headerField.innerHTML = headerAR;
+		pagraphText.innerHTML = pagraphAR;
+		buttonActive.innerHTML = activateUserAR;
+	}
+	if (getLanguageURL=="HI"){
+		headTitle.innerHTML = headerHI;
+		headerField.innerHTML = headerHI;
+		pagraphText.innerHTML = pagraphHI;
+		buttonActive.innerHTML = activateUserHI;
+	}
+	if (getLanguageURL=="UR"){
+		headTitle.innerHTML = headerUR;
+		headerField.innerHTML = headerUR;
+		pagraphText.innerHTML = pagraphUR;
+		buttonActive.innerHTML = activateUserUR;
+	}
+	
+var firebaseConfig = {
+		apiKey: "AIzaSyB9_R4UKHHrgEchrx8bC5HgZlScfv4_PAM",
+		authDomain: "allconnected-e6e70.firebaseapp.com",
+		databaseURL: "https://allconnected-e6e70-default-rtdb.firebaseio.com/",	
+		projectId: "1094819462505",
+		storageBucket: "allconnected-e6e70.appspot.com"};  			
+		appID: "1:1094819462505:android:0f9fe1042804466a3651f8",
+		
+		firebase.initializeApp(firebaseConfig);		
+		
+	
+		
+		function accountActive(){
+		var currentURL = window.location.href;
+		var getLanguageURL = currentURL.substring(36);
+		var errMsgES = "Campo no puede estar vacío"
+		var errMsgEN = "Field should not be empty"
+		var errMsgDE = "Feld sollte nicht leer sein"
+		var errMsgFR = "Le champ ne doit pas être vide"
+		var errMsgIT = "Il campo non deve essere vuoto"
+		var errMsgPT = "O campo não pode estar vazio"
+		var errMsgRU = "Поле не может быть пустым"
+		var errMsgZH = "栏位不能为空"
+		var errMsgJA = "フィールドを空にすることはできません"
+		var errMsgNL = "Veld mag niet leeg zijn"
+		var errMsgPL = "Pole nie może być puste"
+		var errMsgKO = "필드는 비워 둘 수 없습니다."
+		var errMsgSV = "Fältet kan inte vara tomt"
+		var errMsgAR = "لا يمكن أن يكون الحقل فارغًا"
+		var errMsgHI = "मैदान खाली नहीं हो सकता"
+		var errMsgUR = "فیلڈ خالی نہیں ہوسکتا"
+		
+		var userAlreadyActivatedES = "Usuario ya está activado"
+		var userAlreadyActivatedEN = "Accont is already activated"
+		var userAlreadyActivatedFR = "L'utilisateur est déjà activé"
+		var userAlreadyActivatedDE = "Benutzer ist bereits aktiviert"
+		var userAlreadyActivatedIT = "L'utente è già attivato"
+		var userAlreadyActivatedPT = "O usuário já está ativado"
+		var userAlreadyActivatedRU = "Пользователь уже активирован"
+		var userAlreadyActivatedZA = "用户已被激活"
+		var userAlreadyActivatedJA = "ユーザーはすでにアクティブ化されています"
+		var userAlreadyActivatedNL = "Gebruiker is al geactiveerd"
+		var userAlreadyActivatedPL = "Użytkownik jest już aktywowany"
+		var userAlreadyActivatedKO = "사용자가 이미 활성화되었습니다."
+		var userAlreadyActivatedSV = "Användaren är redan aktiverad"
+		var userAlreadyActivatedAR = "تم تنشيط المستخدم بالفعل"
+		var userAlreadyActivatedHI = "उपयोगकर्ता पहले से ही सक्रिय है"
+		var userAlreadyActivatedUR = "صارف پہلے ہی چالو ہے"
+		
+		var userActivatedES = "El usuario ha sido activado"
+		var userActivatedEN = "Account has been activated"
+		var userActivatedDE = "Benutzer wurde aktiviert"
+		var userActivatedFR = "L'utilisateur a été activé"
+		var userActivatedIT = "L'utente è stato attivato"
+		var userActivatedPT = "O usuário foi ativado"
+		var userActivatedRU = "Пользователь был активирован"
+		var userActivatedZH = "用户已被激活"
+		var userActivatedJA = "ユーザーがアクティブ化されました"
+		var userActivatedNL = "Gebruiker is geactiveerd"
+		var userActivatedPL = "Użytkownik został aktywowany"
+		var userActivatedKO = "사용자가 활성화되었습니다"
+		var userActivatedSV = "Användaren har aktiverats"
+		var userActivatedAR = "تم تنشيط المستخدم"
+		var userActivatedHI = "उपयोगकर्ता सक्रिय कर दिया गया है"
+		var userActivatedUR = "صارف کو چالو کر دیا گیا ہے"
+		
+		var database = firebase.database();
+		var userRef = database.ref("Users/ActivatedUser")
+		var activeField = document.getElementById("activeField");
+		var activeUser = document.getElementById("active");
+		var buttonActive = document.getElementById("activeAccount");
+		activeUser.style.textAlign = "center";		
+		if (activeField.value==""){
+			activeUser.style.color="Red";
+			if (getLanguageURL=="EN"){
+				activeUser.innerHTML = errMsgEN;
+			}
+			if (getLanguageURL=="ES"){
+				activeUser.innerHTML = errMsgES;
+			}
+			if (getLanguageURL=="DE"){
+				activeUser.innerHTML = errMsgDE;
+			}
+			if (getLanguageURL=="FR"){
+				activeUser.innerHTML = errMsgFR;
+			}
+			if (getLanguageURL=="IT"){
+				activeUser.innerHTML = errMsgIT;
+			}
+			if (getLanguageURL=="PT"){
+				activeUser.innerHTML = errMsgPT;
+			}
+			if (getLanguageURL=="RU"){
+				activeUser.innerHTML = errMsgRU;
+			}
+			if (getLanguageURL=="ZH"){
+				activeUser.innerHTML = errMsgZH;
+			}
+			if (getLanguageURL=="JA"){
+				activeUser.innerHTML = errMsgJA;
+			}
+			if (getLanguageURL=="NL"){
+				activeUser.innerHTML = errMsgNL;
+			}
+			if (getLanguageURL=="PL"){
+				activeUser.innerHTML = errMsgPL;
+			}
+			if (getLanguageURL=="KO"){
+				activeUser.innerHTML = errMsgKO;
+			}
+			if (getLanguageURL=="SV"){
+				activeUser.innerHTML = errMsgSV;
+			}
+			if (getLanguageURL=="AR"){
+				activeUser.innerHTML = errMsgAR;
+			}
+			if (getLanguageURL=="HI"){
+				activeUser.innerHTML = errMsgHI;
+			}
+			if (getLanguageURL=="UR"){
+				activeUser.innerHTML = errMsgUR;
+			}
+			
+		}else{
+			userRef.orderByChild("activationCode").equalTo(activeField.value).on('value', function(snapshot){
+					var code
+					var activated;		
+					var key = "";					
+					snapshot.forEach(function(childSnapshot){
+						key = childSnapshot.key;
+						code = childSnapshot.child("activationCode").val();
+						activated = childSnapshot.child("activated").val();
+					});						
+					
+					if (code==activeField.value){
+						if (activated == "ON"){			
+							if (getLanguageURL=="EN"){
+								activeUser.innerHTML = userAlreadyActivatedEN
+							}							
+							if (getLanguageURL=="ES"){
+								activeUser.innerHTML = userAlreadyActivatedES
+							}							
+							if (getLanguageURL=="DE"){
+								activeUser.innerHTML = userAlreadyActivatedDE
+							}							
+							if (getLanguageURL=="FR"){
+								activeUser.innerHTML = userAlreadyActivatedFR
+							}							
+							if (getLanguageURL=="IT"){
+								activeUser.innerHTML = userAlreadyActivatedIT
+							}
+							if (getLanguageURL=="PT"){
+								activeUser.innerHTML = userAlreadyActivatedPT
+							}
+							if (getLanguageURL=="RU"){
+								activeUser.innerHTML = userAlreadyActivatedRU
+							}
+							if (getLanguageURL=="ZH"){
+								activeUser.innerHTML = userAlreadyActivatedZH
+							}
+							if (getLanguageURL=="JA"){
+								activeUser.innerHTML = userAlreadyActivatedJA
+							}
+							if (getLanguageURL=="NL"){
+								activeUser.innerHTML = userAlreadyActivatedNL
+							}
+							if (getLanguageURL=="PL"){
+								activeUser.innerHTML = userAlreadyActivatedPL
+							}
+							if (getLanguageURL=="KO"){
+								activeUser.innerHTML = userAlreadyActivatedKO
+							}
+							if (getLanguageURL=="SV"){
+								activeUser.innerHTML = userAlreadyActivatedSV
+							}
+							if (getLanguageURL=="AR"){
+								activeUser.innerHTML = userAlreadyActivatedAR
+							}
+							if (getLanguageURL=="HI"){
+								activeUser.innerHTML = userAlreadyActivatedHI
+							}
+							if (getLanguageURL=="UR"){
+								activeUser.innerHTML = userAlreadyActivatedUR
+							}
+
+						}else{
+							activeUser.style.color="Blue";	
+							database.ref("Users/ActivatedUser").child(key).update({activated: "ON"});
+							if (getLanguageURL=="EN"){
+								activeUser.innerHTML = userActivatedEN;
+							}
+							if (getLanguageURL=="ES"){
+								activeUser.innerHTML = userActivatedES;
+							}
+							if (getLanguageURL=="FR"){
+								activeUser.innerHTML = userActivatedFR;
+							}
+							if (getLanguageURL=="IT"){
+								activeUser.innerHTML = userActivatedIT;
+							}
+							if (getLanguageURL=="DE"){
+								activeUser.innerHTML = userActivatedDE;
+							}
+							if (getLanguageURL=="PT"){
+								activeUser.innerHTML = userActivatedPT;
+							}
+							if (getLanguageURL=="RU"){
+								activeUser.innerHTML = userActivatedRU;
+							}
+							if (getLanguageURL=="ZH"){
+								activeUser.innerHTML = userActivatedZH;
+							}
+							if (getLanguageURL=="JA"){
+								activeUser.innerHTML = userActivatedJA;
+							}
+							if (getLanguageURL=="NL"){
+								activeUser.innerHTML = userActivatedNL;
+							}
+							if (getLanguageURL=="PL"){
+								activeUser.innerHTML = userActivatedPL;
+							}
+							if (getLanguageURL=="KO"){
+								activeUser.innerHTML = userActivatedKO;
+							}
+							if (getLanguageURL=="SV"){
+								activeUser.innerHTML = userActivatedSV;
+							}
+							if (getLanguageURL=="AR"){
+								activeUser.innerHTML = userActivatedAR;
+							}
+							if (getLanguageURL=="HI"){
+								activeUser.innerHTML = userActivatedHI;
+							}
+							if (getLanguageURL=="UR"){
+								activeUser.innerHTML = userActivatedUR;
+							}
+							
+							return;							
+						}
+						
+					}else{
+						activeUser.style.color="Red";	
+						if (getLanguageURL=="EN"){
+							activeUser.innerHTML = "Activation Code: "+activeField.value+" is invalid or does not exist";			
+						}
+						if (getLanguageURL=="ES"){
+							activeUser.innerHTML = "Código de Activación: "+activeField.value+" inválido o no existe";			
+						}
+						
+						if (getLanguageURL=="DE"){
+							activeUser.innerHTML = "Aktivierungscode: "+activeField.value+" ist ungültig oder existiert nicht";			
+						}
+						if (getLanguageURL=="FR"){
+							activeUser.innerHTML = "Le code d'activation: "+activeField.value+" n'est pas valide ou n'existe pas";			
+						}
+						if (getLanguageURL=="IT"){
+							activeUser.innerHTML = "Il codice di attivazione: "+activeField.value+" non è valido o non esiste";			
+						}
+						if (getLanguageURL=="PT"){
+							activeUser.innerHTML = "Código de ativação: "+activeField.value+" inválido ou não existe";			
+						}
+						if (getLanguageURL=="RU"){
+							activeUser.innerHTML = "Код активации: "+ activeField.value +" недействителен или не существует";			
+						}
+						if (getLanguageURL=="ZH"){
+							activeUser.innerHTML = "激活码：" + activeField.value +" 无效或不存在";			
+						}
+						if (getLanguageURL=="JA"){
+							activeUser.innerHTML = "アクティベーションコード： "+ activeField.value +" が無効であるか、存在しません";			
+						}
+						if (getLanguageURL=="NL"){
+							activeUser.innerHTML = "Activeringscode: "+ activeField.value +" ongeldig of bestaat niet";			
+						}
+						if (getLanguageURL=="PL"){
+							activeUser.innerHTML = "Kod aktywacyjny: "+ activeField.value +" jest nieprawidłowy lub nie istnieje";			
+						}
+						if (getLanguageURL=="KO"){
+							activeUser.innerHTML = "활성화 코드 : "+ activeField.value + "가 잘못되었거나 존재하지 않습니다.";			
+						}
+						if (getLanguageURL=="SV"){
+							activeUser.innerHTML = "Aktiveringskod: "+ activeField.value +" ogiltig eller existerar inte";			
+						}
+						if (getLanguageURL=="HI"){
+							activeUser.innerHTML = "सक्रियण कोड: "+ activeField.value +" अमान्य है या मौजूद नहीं है";			
+						}
+						if (getLanguageURL=="AR"){
+							activeUser.innerHTML = "رمز التفعيل: "+activeField.value+" غير صالح أو غير موجود";			
+						}
+						if (getLanguageURL=="UR"){
+							activeUser.innerHTML = "فعالیت کا کوڈ: "+activeField.value+" غلط یا موجود نہیں ہے";			
+						}
+							
+					}
+					
+					
+			});
+	}
+	}
+
+  </script>
+	
+</body>
+</html>
+
